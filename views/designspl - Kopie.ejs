@@ -1,0 +1,11 @@
+<h1><%= spl_id %></h1>
+<ul>
+    <% for(var i=0; i<10; i++) { %>
+        <li>
+            <a href='supplies/<%= i %>'>
+                <%= i %>
+            </a>
+        </li>
+    <% } %>
+</ul>
+<a href="/logout">Log out</a>

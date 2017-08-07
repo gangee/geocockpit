@@ -1,0 +1,68 @@
+
+
+<h1>Edit splitter group</h1>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-9hqn{font-weight:bold;font-size:18px;text-align:right;vertical-align:top}
+.tg .tg-rjdu{font-weight:bold;font-size:36px;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed;">
+<colgroup>
+<col style="width: 139px">
+<col style="width: 22px">
+	<% if (base_data.splitter) { 
+	} else {  %> No splitter  <% base_data.splitter = [];};
+	for (var i = 0; i < base_data.splitter.length; i++) { %>
+<col style="width: 45px">
+<col style="width: 45px">
+<col style="width: 30px">
+<col style="width: 75px">
+	<% } %>
+</colgroup>
+  <tr>
+    <th class="tg-rjdu" colspan="2" rowspan="4"><%= base_data.group %></th>
+	<% for (var i = 0; i < base_data.splitter.length; i++) { %>
+    <th class="tg-yw4l"><%= (i + 1) %></th>
+    <th class="tg-yw4l">total:</th>
+    <th class="tg-yw4l">X</th>
+    <th class="tg-yw4l"></th>
+	<% } %>
+  </tr>
+  <tr>
+	<% for (var i = 0; i < base_data.splitter.length; i++) { %>
+    <td class="tg-9hqn" colspan="4"><%= base_data.splitter[i].doc_label %></td>
+	<% } %>
+  </tr>
+  <tr>
+	<% for (var i = 0; i < base_data.splitter.length; i++) { %>
+    <td class="tg-yw4l" colspan="2"><%= base_data.splitter[i].input_cable_doc_label == null ? '-' : base_data.splitter[i].input_cable_doc_label %></td>
+    <td class="tg-yw4l"><%= base_data.splitter[i].fiber_input_num == null ? '-' : base_data.splitter[i].fiber_input_num %></td>
+    <td class="tg-baqh" rowspan="2">v</td>
+	<% } %>
+  </tr>
+  <tr>
+	<% for (var i = 0; i < base_data.splitter.length; i++) { %>
+    <td class="tg-yw4l">from</td>
+    <td class="tg-yw4l">to</td>
+    <td class="tg-yw4l">ct</td>
+	<% } %>
+  </tr>
+	<% if (base_data.cable) { } else {%> No Cable  <%  base_data.cable = [];}  for (var j = 0; j < base_data.cable.length; j++) { %>
+  <tr>
+    <td class="tg-yw4l"><%= base_data.cable[j].doc_label + (base_data.cable[j].fiber_network_type == 'Feeder' ? '*' : '')%></td>
+	<td class="tg-yw4l">&gt;</td>
+	<% for (var i = 0; i < base_data.splitter.length; i++) { %>
+		<td class="tg-yw4l"><%= /*table_data.rows[j+j*base_data.splitter.length].fiber_from */%></td>
+		<td class="tg-yw4l"><%= /*table_data.rows[j+j*base_data.splitter.length].fiber_to*/%></td>
+		<td class="tg-yw4l"><%= /*table_data.rows[j+j*base_data.splitter.length].fiber_from + table_data.rows[j+j*base_data.splitter.length].fiber_to*/ %></td>
+		<td class="tg-yw4l"><%= /*table_data.rows[j+j*base_data.splitter.length].fiber_from + '-' + table_data.rows[j+j*base_data.splitter.length].fiber_to */ /* table_data.rows[i+j*base_data.splitter.length].splitter_doc_label */ %></td>
+	<% }  %>
+  </tr>
+	<% } %>
+</table>
+
