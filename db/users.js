@@ -1,7 +1,7 @@
 
 var pg = require('pg');
 
-var conString = "postgres://postgres:IO_luz3rn@192.168.30.22:5432/smrl?ssl=true";
+var conString = "postgres://admin:barinka1981@127.0.0.1:5439/smrl?ssl=true";
 
 var client = new pg.Client(conString);
 client.connect();
