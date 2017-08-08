@@ -1,15 +1,18 @@
 var express = require('express');
-var https = require('https');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var db = require('./db');
 var bcrypt = require('bcryptjs');
 
+var config = require('./db/config');
+var pg = require('pg');
+var client = new pg.Client(config.db_tiles_connstring);
+
 passport.use(new Strategy(
   function(username, password, cb) {
     db.users.findByUsername(username, function(err, user) {		
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
+      if (err) { console.log('denied! - error'); return cb(err); }
+      if (!user) { console.log('denied! - name'); return cb(null, false); }
       if (!bcrypt.compareSync(password, user.password)) { 
 			console.log('denied!'); return cb(null, false); 
 		}
@@ -72,9 +75,6 @@ app.get('/logout',
   });
 
   
-var pg = require('pg');
-var conString = "postgres://admin:barinka1981@127.0.0.1:5439/smrl?ssl=true";
-var client = new pg.Client(conString);
 client.connect(); 
 
 app.get('/design_spl/:spl_id',

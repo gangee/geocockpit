@@ -1,14 +1,13 @@
 
 var pg = require('pg');
+var config = require('./config');
 
-var conString = "postgres://admin:barinka1981@127.0.0.1:5439/smrl?ssl=true";
-
-var client = new pg.Client(conString);
+var client = new pg.Client(config.db_users_connstring);
 client.connect();
 
 exports.findById = function(id, cb) {
   process.nextTick(function() {
-	  client.query('SELECT * from cocpit.users where cocpit.users.id = ' + id + ' and cocpit.users.write_enabled', 
+	  client.query('SELECT * from cocpit.users where cocpit.users.id = ' + id + '', 
 		function (error, result) { 
 			if (error) {
 				cb(new Error('User ' + id + ' does not exist'));
@@ -27,8 +26,9 @@ exports.findById = function(id, cb) {
 
 exports.findByUsername = function(username, cb) {
   process.nextTick(function() {
-	  client.query('SELECT * from cocpit.users where cocpit.users.login = \'' + username + '\' and cocpit.users.write_enabled', 
+	  client.query('SELECT * from cocpit.users where cocpit.users.login = \'' + username + '\'', 
 		function (error, result) { 
+			console.log();
 			if (error) {
 				return cb(null, null);
 			} else {
