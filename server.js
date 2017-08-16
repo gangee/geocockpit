@@ -52,17 +52,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Define routes.
+app.use('/js', express.static('public/js'));
+app.use('/img', express.static('public/img'));
 app.get('/',
   function(req, res) {
 	  if (!req.user) {
 		res.render('info', { user: req.user });
 	  } else {
-		res.render('index', { user: req.user });
+		  res.render('index', { user: req.user, total_data: db.data_smrl.getTotalStat() });
 	  }
   });
 
 app.get('/login',
-  function(req, res){
+  function(req, res) {
     res.render('login');
   });
   
